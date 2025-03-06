@@ -1,9 +1,6 @@
 package co.com.bvc.test2023.controller;
 
-import co.com.bvc.test2023.dto.CompanyRankingDTO;
-import co.com.bvc.test2023.dto.TransactionSummaryCompanyDTO;
-import co.com.bvc.test2023.dto.TransactionSummaryUserDTO;
-import co.com.bvc.test2023.dto.UserRankingDTO;
+import co.com.bvc.test2023.dto.*;
 import co.com.bvc.test2023.model.Company;
 import co.com.bvc.test2023.model.Transaction;
 import co.com.bvc.test2023.model.User;
@@ -106,6 +103,91 @@ class TransactionRestControllerTest {
         assertNotNull(response);
         assertEquals(200, response.getStatusCodeValue());
         assertNotNull(response.getBody());
+    }
+
+    @Test
+    void testCreateUpdateTransaction() {
+        Transaction transactionParam = new Transaction();
+        transactionParam.setTransactionType("compra");
+
+        Transaction savedTransaction = new Transaction();
+        when(transactionService.createUpdateTransaction(transactionParam)).thenReturn(savedTransaction);
+
+        ResponseEntity<TransactionResponse> response = transactionRestController.createUpdateTransaction(transactionParam);
+
+        assertNotNull(response);
+        assertEquals(201, response.getStatusCodeValue());
+    }
+
+    @Test
+    void testCreateTransactionByCompany() {
+        Transaction transactionParam = new Transaction();
+        transactionParam.setTransactionType("compra");
+
+        Transaction savedTransaction = new Transaction();
+        when(transactionService.createUpdateTransaction(transactionParam)).thenReturn(savedTransaction);
+
+        ResponseEntity<TransactionResponse> response = transactionRestController.createTransactionByCompany(1L, transactionParam);
+
+        assertNotNull(response);
+        assertEquals(201, response.getStatusCodeValue());
+    }
+
+    @Test
+    void testCreateUpdateTransactionInvalidTransactionType() {
+        Transaction transactionParam = new Transaction();
+        transactionParam.setTransactionType("invalidType");
+
+        ResponseEntity<TransactionResponse> response = transactionRestController.createUpdateTransaction(transactionParam);
+
+        String errorMessage = "El tipo de transacción no es válido, los posibles valores son (compra, venta)";
+
+        assertNotNull(response);
+        assertEquals(500, response.getStatusCodeValue());
+        assertEquals(errorMessage, response.getBody().getError());
+    }
+
+    @Test
+    void testCreateTransactionByCompanyInvalidTransactionType() {
+        Transaction transactionParam = new Transaction();
+        transactionParam.setTransactionType("invalidType");
+
+        ResponseEntity<TransactionResponse> response = transactionRestController.createTransactionByCompany(1L, transactionParam);
+
+        String errorMessage = "El tipo de transacción no es válido, los posibles valores son (compra, venta)";
+
+        assertNotNull(response);
+        assertEquals(500, response.getStatusCodeValue());
+        assertEquals(errorMessage, response.getBody().getError());
+    }
+
+    @Test
+    void testUpdateTransaction() {
+        Transaction transactionParam = new Transaction();
+        transactionParam.setTransactionType("compra");
+
+        Transaction savedTransaction = new Transaction();
+        when(transactionService.getTransactionById(any())).thenReturn(savedTransaction);
+        when(transactionService.createUpdateTransaction(any())).thenReturn(savedTransaction);
+
+        ResponseEntity<TransactionResponse> response = transactionRestController.updateTransaction(1L, transactionParam);
+
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCodeValue());
+    }
+
+    @Test
+    void testUpdateTransactionInvalidTransactionType() {
+        Transaction transactionParam = new Transaction();
+        transactionParam.setTransactionType("invalidType");
+
+        ResponseEntity<TransactionResponse> response = transactionRestController.updateTransaction(1L, transactionParam);
+
+        String errorMessage = "El tipo de transacción no es válido, los posibles valores son (compra, venta)";
+
+        assertNotNull(response);
+        assertEquals(500, response.getStatusCodeValue());
+        assertEquals(errorMessage, response.getBody().getError());
     }
 
     @Test
