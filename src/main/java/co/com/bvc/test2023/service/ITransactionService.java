@@ -14,4 +14,6 @@ public interface ITransactionService {
 
     public void deleteTransaction(Long id);
 
+    public List<Transaction> getTransactionByUser(Long idUser);
+
 }

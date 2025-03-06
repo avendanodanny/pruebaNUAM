@@ -77,13 +77,13 @@ public class TransactionRestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTransaction(@PathVariable("id") Long id) {
-        logger.info("llega al método deleteCompany...");
+        logger.info("llega al método deleteTransaction...");
         transactionService.deleteTransaction(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/company/{idCompany}")
-    public ResponseEntity<TransactionResponse> createTransactionCompany(@PathVariable("idCompany") Long idCompany,
+    public ResponseEntity<TransactionResponse> createTransactionByCompany(@PathVariable("idCompany") Long idCompany,
                                                                         @RequestBody Transaction transaction) {
         logger.info("llega al método createTransactionCompany...");
         TransactionResponse response = null;
@@ -98,6 +98,17 @@ public class TransactionRestController {
             response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
                     null);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/user/{idUser}")
+    public ResponseEntity<List<Transaction>> getTransactionByUser(@PathVariable("idUser") Long idUser) {
+        logger.info("llega al método getTransactionByUser...");
+        List<Transaction> transactions = transactionService.getTransactionByUser(idUser);
+        if (transactions != null) {
+            return new ResponseEntity<>(transactions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
