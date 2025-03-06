@@ -1,11 +1,11 @@
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/controller/CompanyRestController.java
-/Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/TransactionSummaryDTO.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/TransactionResponse.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/Test2023Application.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/ICompanyService.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/TransactionService.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/CompanyService.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/repository/UserRepository.java
+/Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/TransactionSummaryCompanyDTO.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/repository/CompanyRepository.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/controller/TransactionRestController.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/model/Transaction.java
@@ -14,6 +14,7 @@
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/repository/TransactionRepository.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/Test2023Configuration.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/IUserService.java
+/Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/TransactionSummaryUserDTO.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/controller/UserRestController.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/model/User.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/model/Company.java

@@ -1,6 +1,7 @@
 package co.com.bvc.test2023.service;
 
-import co.com.bvc.test2023.dto.TransactionSummaryDTO;
+import co.com.bvc.test2023.dto.TransactionSummaryCompanyDTO;
+import co.com.bvc.test2023.dto.TransactionSummaryUserDTO;
 import co.com.bvc.test2023.model.Transaction;
 import co.com.bvc.test2023.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,11 +78,28 @@ public class TransactionService implements ITransactionService{
      * Method to get summary transactions by user
      * @return list of summary transactions
      */
-    public List<TransactionSummaryDTO> getTransactionSummaryByUser() {
+    public List<TransactionSummaryUserDTO> getTransactionSummaryByUser() {
         List<Object[]> results = transactionRepository.getTransactionSummaryByUser();
         return results.stream()
-                .map(obj -> new TransactionSummaryDTO(
+                .map(obj -> new TransactionSummaryUserDTO(
                         (Long) obj[0],  // userId
+                        (Long) obj[1],  // totalCompradas
+                        (Long) obj[2],  // totalVendidas
+                        (Long) obj[3],  // precioTotalCompras
+                        (Long) obj[4]   // precioTotalVentas
+                ))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Method to get summary transactions by company
+     * @return list of summary transactions
+     */
+    public List<TransactionSummaryCompanyDTO> getTransactionSummaryByCompany() {
+        List<Object[]> results = transactionRepository.getTransactionSummaryByCompany();
+        return results.stream()
+                .map(obj -> new TransactionSummaryCompanyDTO(
+                        (Long) obj[0],  // companyId
                         (Long) obj[1],  // totalCompradas
                         (Long) obj[2],  // totalVendidas
                         (Long) obj[3],  // precioTotalCompras

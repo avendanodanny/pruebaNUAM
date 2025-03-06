@@ -9,7 +9,7 @@ co/com/bvc/test2023/model/Company.class
 co/com/bvc/test2023/service/CompanyService.class
 co/com/bvc/test2023/Test2023Configuration.class
 co/com/bvc/test2023/controller/CompanyRestController.class
-co/com/bvc/test2023/dto/TransactionSummaryDTO.class
+co/com/bvc/test2023/dto/TransactionSummaryUserDTO.class
 co/com/bvc/test2023/controller/UserRestController.class
 co/com/bvc/test2023/controller/TransactionRestController.class
 co/com/bvc/test2023/model/User.class
@@ -17,3 +17,4 @@ co/com/bvc/test2023/service/ITransactionService.class
 co/com/bvc/test2023/repository/CompanyRepository.class
 co/com/bvc/test2023/service/IUserService.class
 co/com/bvc/test2023/dto/TransactionResponse.class
+co/com/bvc/test2023/dto/TransactionSummaryCompanyDTO.class

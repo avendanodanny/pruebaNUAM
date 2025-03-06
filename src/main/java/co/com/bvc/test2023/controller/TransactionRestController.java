@@ -1,6 +1,7 @@
 package co.com.bvc.test2023.controller;
 
-import co.com.bvc.test2023.dto.TransactionSummaryDTO;
+import co.com.bvc.test2023.dto.TransactionSummaryCompanyDTO;
+import co.com.bvc.test2023.dto.TransactionSummaryUserDTO;
 import co.com.bvc.test2023.model.Company;
 import co.com.bvc.test2023.model.Transaction;
 import co.com.bvc.test2023.dto.TransactionResponse;
@@ -169,9 +170,14 @@ public class TransactionRestController {
         return transactionService.getTransactionsBetweenDates(startDate, endDate);
     }
 
-    @GetMapping("/summary")
-    public List<TransactionSummaryDTO> getTransactionSummary() {
+    @GetMapping("/user/summary")
+    public List<TransactionSummaryUserDTO> getTransactionSummaryUser() {
         return transactionService.getTransactionSummaryByUser();
+    }
+
+    @GetMapping("/company/summary")
+    public List<TransactionSummaryCompanyDTO> getTransactionSummaryCompany() {
+        return transactionService.getTransactionSummaryByCompany();
     }
 
 }

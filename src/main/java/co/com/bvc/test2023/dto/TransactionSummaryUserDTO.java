@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class TransactionSummaryDTO {
+public class TransactionSummaryUserDTO {
 
     private Long userId;
     private Long totalCompradas;

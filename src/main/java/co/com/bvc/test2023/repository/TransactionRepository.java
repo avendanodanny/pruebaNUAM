@@ -28,4 +28,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "GROUP BY t.user.id")
     List<Object[]> getTransactionSummaryByUser();
 
+    @Query("SELECT " +
+            "t.company.id, " +
+            "SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares ELSE 0 END) AS totalCompradas, " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares ELSE 0 END) AS totalVendidas, " +
+            "SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares * t.priceShare ELSE 0 END) AS precioTotalCompras, " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares * t.priceShare ELSE 0 END) AS precioTotalVentas " +
+            "FROM Transaction t " +
+            "GROUP BY t.company.id")
+    List<Object[]> getTransactionSummaryByCompany();
+
 }
