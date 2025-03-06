@@ -2,6 +2,7 @@ package co.com.bvc.test2023.service;
 
 import co.com.bvc.test2023.model.Transaction;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ITransactionService {
@@ -15,5 +16,9 @@ public interface ITransactionService {
     public void deleteTransaction(Long id);
 
     public List<Transaction> getTransactionByUser(Long idUser);
+
+    public List<Transaction> getTransactionByCompany(Long companyId);
+
+    public List<Transaction> getTransactionsBetweenDates(Date startDate, Date endDate);
 
 }

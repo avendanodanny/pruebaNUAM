@@ -5,6 +5,7 @@ import co.com.bvc.test2023.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,10 +46,26 @@ public class TransactionService implements ITransactionService{
     }
 
     /**
-     * Method to get all the transaction by user
-     * @return list of transaction
+     * Method to get all the transactions by user
+     * @return list of transactions
      */
     public List<Transaction> getTransactionByUser(Long idUser) {
         return transactionRepository.getTransactionByUser(idUser);
+    }
+
+    /**
+     * Method to get all the transactions by company
+     * @return list of transactions
+     */
+    public List<Transaction> getTransactionByCompany(Long idCompany) {
+        return transactionRepository.getTransactionByCompany(idCompany);
+    }
+
+    /**
+     * Method to get all the transaction between date range
+     * @return list of transactions
+     */
+    public List<Transaction> getTransactionsBetweenDates(Date startDate, Date endDate) {
+        return transactionRepository.getTransactionsBetweenDates(startDate, endDate);
     }
 }

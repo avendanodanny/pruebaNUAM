@@ -7,10 +7,12 @@ import co.com.bvc.test2023.service.ITransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -110,6 +112,25 @@ public class TransactionRestController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/company/{idCompany}")
+    public ResponseEntity<List<Transaction>> getTransactionByCompany(@PathVariable("idCompany") Long idCompany) {
+        logger.info("llega al método getTransactionByCompany...");
+        List<Transaction> transactions = transactionService.getTransactionByCompany(idCompany);
+        if (transactions != null) {
+            return new ResponseEntity<>(transactions, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/range")
+    public List<Transaction> getTransactionsBetweenDates(
+            @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+
+        return transactionService.getTransactionsBetweenDates(startDate, endDate);
     }
 
 }
