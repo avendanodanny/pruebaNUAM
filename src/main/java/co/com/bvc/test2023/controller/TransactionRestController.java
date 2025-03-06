@@ -24,6 +24,10 @@ public class TransactionRestController {
     @Autowired
     private ITransactionService transactionService;
 
+    /**
+     * Method to get all the transactions
+     * @return entity your body is list transactions
+     */
     @GetMapping
     public ResponseEntity<List<Transaction>> getAllTransactions() {
         logger.info("llega al método getAllTransactions...");
@@ -31,6 +35,11 @@ public class TransactionRestController {
         return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
+    /**
+     * Method to get one transaction for id
+     * @param id transaction
+     * @return entity your body contain transaction
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Transaction> getTransactionById(@PathVariable("id") Long id) {
         logger.info("llega al método getTransactionById...");
@@ -42,6 +51,11 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * Method for validate transaction type
+     * @param trxType transaction type
+     * @return boolean indicated if transaction type is valid
+     */
     private boolean validateTransactionType(String trxType){
         if (trxType.equals("compra") || trxType.equals("venta")){
             return true;
@@ -50,6 +64,11 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * Method to create new transaction or update a existing
+     * @param transaction
+     * @return entity your body contain transaction response
+     */
     @PostMapping
     public ResponseEntity<TransactionResponse> createUpdateTransaction(@RequestBody Transaction transaction) {
         logger.info("llega al método createUpdateTransaction...");
@@ -72,6 +91,12 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * Method to update transaction
+     * @param id transaction
+     * @param transaction entity transaction with the new values
+     * @return entity your body contain transaction response
+     */
     @PutMapping("/{id}")
     public ResponseEntity<TransactionResponse> updateTransaction(@PathVariable("id") Long id, @RequestBody Transaction transaction) {
         logger.info("llega al método updateTransaction...");
@@ -106,6 +131,11 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * Method to delete one transaction for id
+     * @param id transaction to delete
+     * @return entity with http status
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteTransaction(@PathVariable("id") Long id) {
         logger.info("llega al método deleteTransaction...");
@@ -113,6 +143,12 @@ public class TransactionRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Method to create new transaction for company
+     * @param idCompany
+     * @param transaction
+     * @return entity your body contain transaction response
+     */
     @PostMapping("/company/{idCompany}")
     public ResponseEntity<TransactionResponse> createTransactionByCompany(@PathVariable("idCompany") Long idCompany,
                                                                         @RequestBody Transaction transaction) {
@@ -138,6 +174,11 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * Method to get all the transactions by user
+     * @param idUser
+     * @return list of transactions
+     */
     @GetMapping("/user/{idUser}")
     public ResponseEntity<List<Transaction>> getTransactionByUser(@PathVariable("idUser") Long idUser) {
         logger.info("llega al método getTransactionByUser...");
@@ -149,6 +190,11 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * Method to get all the transactions by company
+     * @param idCompany
+     * @return list of transactions
+     */
     @GetMapping("/company/{idCompany}")
     public ResponseEntity<List<Transaction>> getTransactionByCompany(@PathVariable("idCompany") Long idCompany) {
         logger.info("llega al método getTransactionByCompany...");
@@ -160,6 +206,12 @@ public class TransactionRestController {
         }
     }
 
+    /**
+     * Method to get all the transaction between date range
+     * @param startDate
+     * @param endDate
+     * @return list of transactions
+     */
     @GetMapping("/range")
     public List<Transaction> getTransactionsBetweenDates(
             @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
@@ -168,21 +220,37 @@ public class TransactionRestController {
         return transactionService.getTransactionsBetweenDates(startDate, endDate);
     }
 
+    /**
+     * Method to get summary transactions by user
+     * @return list of summary transactions
+     */
     @GetMapping("/user/summary")
     public List<TransactionSummaryUserDTO> getTransactionSummaryUser() {
         return transactionService.getTransactionSummaryByUser();
     }
 
+    /**
+     * Method to get summary transactions by company
+     * @return list of summary transactions
+     */
     @GetMapping("/company/summary")
     public List<TransactionSummaryCompanyDTO> getTransactionSummaryCompany() {
         return transactionService.getTransactionSummaryByCompany();
     }
 
+    /**
+     * Method to get top 10 companies by transactions
+     * @return list of company ranking
+     */
     @GetMapping("/company/ranking")
     public List<CompanyRankingDTO> getTop10CompaniesByTransactions() {
         return transactionService.getTop10CompaniesByTransactions();
     }
 
+    /**
+     * Method to get top 10 users by transactions
+     * @return list of user ranking
+     */
     @GetMapping("/user/ranking")
     public List<UserRankingDTO> getTop10UsersByTransactions() {
         return transactionService.getTop10UsersByTransactions();
