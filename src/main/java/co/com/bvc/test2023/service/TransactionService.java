@@ -1,5 +1,6 @@
 package co.com.bvc.test2023.service;
 
+import co.com.bvc.test2023.dto.TransactionSummaryDTO;
 import co.com.bvc.test2023.model.Transaction;
 import co.com.bvc.test2023.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService implements ITransactionService{
@@ -63,9 +65,28 @@ public class TransactionService implements ITransactionService{
 
     /**
      * Method to get all the transaction between date range
+     * @param startDate
+     * @param endDate
      * @return list of transactions
      */
     public List<Transaction> getTransactionsBetweenDates(Date startDate, Date endDate) {
         return transactionRepository.getTransactionsBetweenDates(startDate, endDate);
+    }
+
+    /**
+     * Method to get summary transactions by user
+     * @return list of summary transactions
+     */
+    public List<TransactionSummaryDTO> getTransactionSummaryByUser() {
+        List<Object[]> results = transactionRepository.getTransactionSummaryByUser();
+        return results.stream()
+                .map(obj -> new TransactionSummaryDTO(
+                        (Long) obj[0],  // userId
+                        (Long) obj[1],  // totalCompradas
+                        (Long) obj[2],  // totalVendidas
+                        (Long) obj[3],  // precioTotalCompras
+                        (Long) obj[4]   // precioTotalVentas
+                ))
+                .collect(Collectors.toList());
     }
 }

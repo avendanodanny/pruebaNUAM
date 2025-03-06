@@ -1,8 +1,9 @@
 package co.com.bvc.test2023.controller;
 
+import co.com.bvc.test2023.dto.TransactionSummaryDTO;
 import co.com.bvc.test2023.model.Company;
 import co.com.bvc.test2023.model.Transaction;
-import co.com.bvc.test2023.model.TransactionResponse;
+import co.com.bvc.test2023.dto.TransactionResponse;
 import co.com.bvc.test2023.service.ITransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,38 +43,67 @@ public class TransactionRestController {
         }
     }
 
+    private boolean validateTransactionType(String trxType){
+        if (trxType.equals("compra") || trxType.equals("venta")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     @PostMapping
     public ResponseEntity<TransactionResponse> createUpdateTransaction(@RequestBody Transaction transaction) {
         logger.info("llega al método createUpdateTransaction...");
         TransactionResponse response = null;
-        try {
-            Transaction savedTransaction = transactionService.createUpdateTransaction(transaction);
-            response = new TransactionResponse(null, savedTransaction);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }catch (Exception e){
-            logger.error(e.getMessage());
-            response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
+        if (validateTransactionType(transaction.getTransactionType())){
+            try {
+                Transaction savedTransaction = transactionService.createUpdateTransaction(transaction);
+                response = new TransactionResponse(null, savedTransaction);
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            }catch (Exception e){
+                logger.error(e.getMessage());
+                response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
+                        null);
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }else{
+            response = new TransactionResponse("El tipo de transacción no es válido, los posibles valores son (compra, venta)",
                     null);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Transaction> updateTransaction(@PathVariable("id") Long id, @RequestBody Transaction transaction) {
+    public ResponseEntity<TransactionResponse> updateTransaction(@PathVariable("id") Long id, @RequestBody Transaction transaction) {
         logger.info("llega al método updateTransaction...");
-        Transaction existingTransaction = transactionService.getTransactionById(id);
-        if (existingTransaction != null) {
-            existingTransaction.setCompany(transaction.getCompany());
-            existingTransaction.setUser(transaction.getUser());
-            existingTransaction.setTransactionType(transaction.getTransactionType());
-            existingTransaction.setNumberShares(transaction.getNumberShares());
-            existingTransaction.setPriceShare(transaction.getPriceShare());
-            existingTransaction.setDateTrx(transaction.getDateTrx());
+        TransactionResponse response = null;
+        if (validateTransactionType(transaction.getTransactionType())){
+            try {
+                Transaction existingTransaction = transactionService.getTransactionById(id);
+                if (existingTransaction != null) {
+                    existingTransaction.setCompany(transaction.getCompany());
+                    existingTransaction.setUser(transaction.getUser());
+                    existingTransaction.setTransactionType(transaction.getTransactionType());
+                    existingTransaction.setNumberShares(transaction.getNumberShares());
+                    existingTransaction.setPriceShare(transaction.getPriceShare());
+                    existingTransaction.setDateTrx(transaction.getDateTrx());
 
-            Transaction updatedTransaction = transactionService.createUpdateTransaction(existingTransaction);
-            return new ResponseEntity<>(updatedTransaction, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                    Transaction updatedTransaction = transactionService.createUpdateTransaction(existingTransaction);
+                    response = new TransactionResponse(null, updatedTransaction);
+                    return new ResponseEntity<>(response, HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            }catch (Exception e){
+                logger.error(e.getMessage());
+                response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
+                        null);
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }else{
+            response = new TransactionResponse("El tipo de transacción no es válido, los posibles valores son (compra, venta)",
+                    null);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -89,15 +119,21 @@ public class TransactionRestController {
                                                                         @RequestBody Transaction transaction) {
         logger.info("llega al método createTransactionCompany...");
         TransactionResponse response = null;
-        try {
-            Company company = new Company(idCompany, "");
-            transaction.setCompany(company);
-            Transaction savedTransaction = transactionService.createUpdateTransaction(transaction);
-            response = new TransactionResponse(null, savedTransaction);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        }catch (Exception e){
-            logger.error(e.getMessage());
-            response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
+        if (validateTransactionType(transaction.getTransactionType())){
+            try {
+                Company company = new Company(idCompany, "");
+                transaction.setCompany(company);
+                Transaction savedTransaction = transactionService.createUpdateTransaction(transaction);
+                response = new TransactionResponse(null, savedTransaction);
+                return new ResponseEntity<>(response, HttpStatus.CREATED);
+            }catch (Exception e){
+                logger.error(e.getMessage());
+                response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
+                        null);
+                return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }else{
+            response = new TransactionResponse("El tipo de transacción no es válido, los posibles valores son (compra, venta)",
                     null);
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -131,6 +167,11 @@ public class TransactionRestController {
             @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
 
         return transactionService.getTransactionsBetweenDates(startDate, endDate);
+    }
+
+    @GetMapping("/summary")
+    public List<TransactionSummaryDTO> getTransactionSummary() {
+        return transactionService.getTransactionSummaryByUser();
     }
 
 }

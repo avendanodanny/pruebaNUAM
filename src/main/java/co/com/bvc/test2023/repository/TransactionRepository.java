@@ -18,4 +18,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     @Query("SELECT t FROM Transaction t WHERE t.dateTrx BETWEEN ?1 AND ?2")
     List<Transaction> getTransactionsBetweenDates(Date startDate, Date endDate);
 
+    @Query("SELECT " +
+            "t.user.id, " +
+            "SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares ELSE 0 END) AS totalCompradas, " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares ELSE 0 END) AS totalVendidas, " +
+            "SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares * t.priceShare ELSE 0 END) AS precioTotalCompras, " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares * t.priceShare ELSE 0 END) AS precioTotalVentas " +
+            "FROM Transaction t " +
+            "GROUP BY t.user.id")
+    List<Object[]> getTransactionSummaryByUser();
+
 }
