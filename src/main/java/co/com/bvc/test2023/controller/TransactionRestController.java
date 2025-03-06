@@ -1,10 +1,8 @@
 package co.com.bvc.test2023.controller;
 
-import co.com.bvc.test2023.dto.TransactionSummaryCompanyDTO;
-import co.com.bvc.test2023.dto.TransactionSummaryUserDTO;
+import co.com.bvc.test2023.dto.*;
 import co.com.bvc.test2023.model.Company;
 import co.com.bvc.test2023.model.Transaction;
-import co.com.bvc.test2023.dto.TransactionResponse;
 import co.com.bvc.test2023.service.ITransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -178,6 +176,16 @@ public class TransactionRestController {
     @GetMapping("/company/summary")
     public List<TransactionSummaryCompanyDTO> getTransactionSummaryCompany() {
         return transactionService.getTransactionSummaryByCompany();
+    }
+
+    @GetMapping("/company/ranking")
+    public List<CompanyRankingDTO> getTop10CompaniesByTransactions() {
+        return transactionService.getTop10CompaniesByTransactions();
+    }
+
+    @GetMapping("/user/ranking")
+    public List<UserRankingDTO> getTop10UsersByTransactions() {
+        return transactionService.getTop10UsersByTransactions();
     }
 
 }

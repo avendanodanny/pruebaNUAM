@@ -1,10 +1,13 @@
 package co.com.bvc.test2023.service;
 
+import co.com.bvc.test2023.dto.CompanyRankingDTO;
 import co.com.bvc.test2023.dto.TransactionSummaryCompanyDTO;
 import co.com.bvc.test2023.dto.TransactionSummaryUserDTO;
+import co.com.bvc.test2023.dto.UserRankingDTO;
 import co.com.bvc.test2023.model.Transaction;
 import co.com.bvc.test2023.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -104,6 +107,36 @@ public class TransactionService implements ITransactionService{
                         (Long) obj[2],  // totalVendidas
                         (Long) obj[3],  // precioTotalCompras
                         (Long) obj[4]   // precioTotalVentas
+                ))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Method to get top 10 companies by transactions
+     * @return list of company ranking
+     */
+    public List<CompanyRankingDTO> getTop10CompaniesByTransactions() {
+        List<Object[]> results = transactionRepository.getTop10CompaniesByTransactions(PageRequest.of(0, 10));
+        return results.stream()
+                .map(obj -> new CompanyRankingDTO(
+                        (Long) obj[0],  // companyId
+                        (Long) obj[1],  // totalCompradas
+                        (Long) obj[2]   // totalVendidas
+                ))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Method to get top 10 users by transactions
+     * @return list of user ranking
+     */
+    public List<UserRankingDTO> getTop10UsersByTransactions() {
+        List<Object[]> results = transactionRepository.getTop10UsersByTransactions(PageRequest.of(0, 10));
+        return results.stream()
+                .map(obj -> new UserRankingDTO(
+                        (Long) obj[0],  // userId
+                        (Long) obj[1],  // totalCompradas
+                        (Long) obj[2]   // totalVendidas
                 ))
                 .collect(Collectors.toList());
     }

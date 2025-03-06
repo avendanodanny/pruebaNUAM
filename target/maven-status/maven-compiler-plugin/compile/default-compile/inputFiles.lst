@@ -3,6 +3,7 @@
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/Test2023Application.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/ICompanyService.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/TransactionService.java
+/Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/CompanyRankingDTO.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/CompanyService.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/repository/UserRepository.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/TransactionSummaryCompanyDTO.java
@@ -14,6 +15,7 @@
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/repository/TransactionRepository.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/Test2023Configuration.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/service/IUserService.java
+/Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/UserRankingDTO.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/dto/TransactionSummaryUserDTO.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/controller/UserRestController.java
 /Users/dreamcode/pruebaNUAM/src/main/java/co/com/bvc/test2023/model/User.java

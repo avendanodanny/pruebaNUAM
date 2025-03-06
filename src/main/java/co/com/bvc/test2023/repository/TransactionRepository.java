@@ -1,6 +1,7 @@
 package co.com.bvc.test2023.repository;
 
 import co.com.bvc.test2023.model.Transaction;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -37,5 +38,23 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             "FROM Transaction t " +
             "GROUP BY t.company.id")
     List<Object[]> getTransactionSummaryByCompany();
+
+    @Query("SELECT t.company.id, " +
+            "SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares ELSE 0 END) AS totalCompradas, " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares ELSE 0 END) AS totalVendidas " +
+            "FROM Transaction t " +
+            "GROUP BY t.company.id " +
+            "ORDER BY (SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares ELSE 0 END) + " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares ELSE 0 END)) DESC")
+    List<Object[]> getTop10CompaniesByTransactions(Pageable pageable);
+
+    @Query("SELECT t.user.id, " +
+            "SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares ELSE 0 END) AS totalCompradas, " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares ELSE 0 END) AS totalVendidas " +
+            "FROM Transaction t " +
+            "GROUP BY t.user.id " +
+            "ORDER BY (SUM(CASE WHEN t.transactionType = 'compra' THEN t.numberShares ELSE 0 END) + " +
+            "SUM(CASE WHEN t.transactionType = 'venta' THEN t.numberShares ELSE 0 END)) DESC")
+    List<Object[]> getTop10UsersByTransactions(Pageable pageable);
 
 }

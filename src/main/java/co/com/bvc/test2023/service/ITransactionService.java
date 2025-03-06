@@ -1,7 +1,9 @@
 package co.com.bvc.test2023.service;
 
+import co.com.bvc.test2023.dto.CompanyRankingDTO;
 import co.com.bvc.test2023.dto.TransactionSummaryCompanyDTO;
 import co.com.bvc.test2023.dto.TransactionSummaryUserDTO;
+import co.com.bvc.test2023.dto.UserRankingDTO;
 import co.com.bvc.test2023.model.Transaction;
 
 import java.util.Date;
@@ -26,5 +28,9 @@ public interface ITransactionService {
     public List<TransactionSummaryUserDTO> getTransactionSummaryByUser();
 
     public List<TransactionSummaryCompanyDTO> getTransactionSummaryByCompany();
+
+    public List<CompanyRankingDTO> getTop10CompaniesByTransactions();
+
+    public List<UserRankingDTO> getTop10UsersByTransactions();
 
 }
