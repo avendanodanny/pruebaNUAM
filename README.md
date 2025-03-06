@@ -24,6 +24,10 @@ para levantar el servicio, como se muestra a continuación:
 El servicio localmente queda expuesto en la ruta "http://localhost:8080", como se muestra en el log del servicio al
 momento de levantarse (imagen anterior).
 
+Para ejecutar los test se debe ejecutar el comando "mvn test", como se muestra a continuación:
+
+![img_4.png](img_4.png)
+
 # Notas
 - Para la prueba, se recibió una plantilla spring-boot con maven para las dependencias, sin embargo el servicio no me
 iniciaba, para ello tuve que añadir dependencia del spring-boot-starter-parent en el pom.xml, puesto que,
