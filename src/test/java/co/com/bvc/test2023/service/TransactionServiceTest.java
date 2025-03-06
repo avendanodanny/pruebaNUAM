@@ -101,55 +101,80 @@ class TransactionServiceTest {
 
     @Test
     void testGetTransactionByIdFound() {
+        // Datos simulados
         Long transactionId = 1L;
         Transaction transaction = new Transaction();
+
+        // Simular comportamiento del repositorio
         when(transactionRepository.findById(transactionId)).thenReturn(Optional.of(transaction));
 
+        // Llamar al método del servicio
         Transaction result = transactionService.getTransactionById(transactionId);
 
+        // Validar respuesta
         assertNotNull(result);
         verify(transactionRepository, times(1)).findById(transactionId);
     }
 
     @Test
     void testGetTransactionByIdNotFound() {
+        // Datos simulados
         Long transactionId = 1L;
+
+        // Simular comportamiento del repositorio
         when(transactionRepository.findById(transactionId)).thenReturn(Optional.empty());
 
+        // Llamar al método del servicio
         Transaction result = transactionService.getTransactionById(transactionId);
 
+        // Validar respuesta
         assertNull(result);
         verify(transactionRepository, times(1)).findById(transactionId);
     }
 
     @Test
     void testCreateUpdateTransaction() {
+        // Datos simulados
         Transaction transaction = new Transaction();
+
+        // Simular comportamiento del repositorio
         when(transactionRepository.save(transaction)).thenReturn(transaction);
 
+        // Llamar al método del servicio
         Transaction result = transactionService.createUpdateTransaction(transaction);
 
+        // Validar respuesta
         assertNotNull(result);
         verify(transactionRepository, times(1)).save(transaction);
     }
 
     @Test
     void testDeleteTransaction() {
+        // Datos simulados
         Long transactionId = 1L;
+
+        // Simular comportamiento del repositorio
         doNothing().when(transactionRepository).deleteById(transactionId);
 
+        // Llamar al método del servicio
         transactionService.deleteTransaction(transactionId);
 
+        // Validar respuesta
         verify(transactionRepository, times(1)).deleteById(transactionId);
     }
 
     @Test
     void testGetTop10CompaniesByTransactions() {
+        // Datos simulados
         List<Object[]> mockResults = Arrays.asList(new Object[]{1L, 100L, 50L}, new Object[]{1L, 100L, 50L});
+
+        // Simular comportamiento del repositorio
         when(transactionRepository.getTop10CompaniesByTransactions(any())).thenReturn(mockResults);
 
+        // Llamar al método del servicio
         List<CompanyRankingDTO> result = transactionService.getTop10CompaniesByTransactions();
 
+        // Validar respuesta
         assertNotNull(result);
         assertEquals(2, result.size());
         assertEquals(100L, result.get(0).getTotalCompradas());
@@ -160,11 +185,16 @@ class TransactionServiceTest {
 
     @Test
     void testGetTop10UsersByTransactions() {
+        // Datos simulados
         List<Object[]> mockResults = Arrays.asList(new Object[]{1L, 100L, 50L}, new Object[]{1L, 100L, 50L});
+
+        // Simular comportamiento del repositorio
         when(transactionRepository.getTop10UsersByTransactions(any())).thenReturn(mockResults);
 
+        // Llamar al método del servicio
         List<UserRankingDTO> result = transactionService.getTop10UsersByTransactions();
 
+        // Validar respuesta
         assertNotNull(result);
         assertEquals(2, result.size());
         assertEquals(100L, result.get(0).getTotalCompradas());
@@ -175,11 +205,16 @@ class TransactionServiceTest {
 
     @Test
     void testGetTransactionSummaryByUser() {
+        // Datos simulados
         List<Object[]> mockResults = Arrays.asList(new Object[]{1L, 100L, 50L, 500L, 450L}, new Object[]{1L, 100L, 50L, 500L, 450L});
+
+        // Simular comportamiento del repositorio
         when(transactionRepository.getTransactionSummaryByUser()).thenReturn(mockResults);
 
+        // Llamar al método del servicio
         List<TransactionSummaryUserDTO> result = transactionService.getTransactionSummaryByUser();
 
+        // Validar respuesta
         assertNotNull(result);
         assertEquals(2, result.size());
         assertEquals(100L, result.get(0).getTotalCompradas());
@@ -190,11 +225,16 @@ class TransactionServiceTest {
 
     @Test
     void testGetTransactionSummaryByCompany() {
+        // Datos simulados
         List<Object[]> mockResults = Arrays.asList(new Object[]{1L, 100L, 50L, 500L, 450L}, new Object[]{1L, 100L, 50L, 500L, 450L});
+
+        // Simular comportamiento del repositorio
         when(transactionRepository.getTransactionSummaryByCompany()).thenReturn(mockResults);
 
+        // Llamar al método del servicio
         List<TransactionSummaryCompanyDTO> result = transactionService.getTransactionSummaryByCompany();
 
+        // Validar respuesta
         assertNotNull(result);
         assertEquals(2, result.size());
         assertEquals(100L, result.get(0).getTotalCompradas());
