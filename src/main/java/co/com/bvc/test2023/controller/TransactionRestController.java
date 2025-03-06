@@ -1,5 +1,6 @@
 package co.com.bvc.test2023.controller;
 
+import co.com.bvc.test2023.model.Company;
 import co.com.bvc.test2023.model.Transaction;
 import co.com.bvc.test2023.model.TransactionResponse;
 import co.com.bvc.test2023.service.ITransactionService;
@@ -40,11 +41,11 @@ public class TransactionRestController {
     }
 
     @PostMapping
-    public ResponseEntity<TransactionResponse> createUpdateTransaction(@RequestBody Transaction company) {
+    public ResponseEntity<TransactionResponse> createUpdateTransaction(@RequestBody Transaction transaction) {
         logger.info("llega al método createUpdateTransaction...");
         TransactionResponse response = null;
         try {
-            Transaction savedTransaction = transactionService.createUpdateTransaction(company);
+            Transaction savedTransaction = transactionService.createUpdateTransaction(transaction);
             response = new TransactionResponse(null, savedTransaction);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         }catch (Exception e){
@@ -79,6 +80,25 @@ public class TransactionRestController {
         logger.info("llega al método deleteCompany...");
         transactionService.deleteTransaction(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/company/{idCompany}")
+    public ResponseEntity<TransactionResponse> createTransactionCompany(@PathVariable("idCompany") Long idCompany,
+                                                                        @RequestBody Transaction transaction) {
+        logger.info("llega al método createTransactionCompany...");
+        TransactionResponse response = null;
+        try {
+            Company company = new Company(idCompany, "");
+            transaction.setCompany(company);
+            Transaction savedTransaction = transactionService.createUpdateTransaction(transaction);
+            response = new TransactionResponse(null, savedTransaction);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
+                    null);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

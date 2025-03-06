@@ -2,6 +2,7 @@ co/com/bvc/test2023/repository/TransactionRepository.class
 co/com/bvc/test2023/service/UserService.class
 co/com/bvc/test2023/service/TransactionService.class
 co/com/bvc/test2023/repository/UserRepository.class
+co/com/bvc/test2023/model/TransactionResponse.class
 co/com/bvc/test2023/model/Transaction.class
 co/com/bvc/test2023/Test2023Application.class
 co/com/bvc/test2023/service/ICompanyService.class
