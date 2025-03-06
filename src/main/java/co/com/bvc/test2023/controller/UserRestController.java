@@ -22,6 +22,10 @@ public class UserRestController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * Method to get all the users
+     * @return entity your body is list of users
+     */
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         logger.info("llega al método getAllUsers...");
@@ -29,6 +33,11 @@ public class UserRestController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    /**
+     * Method to get one user for id
+     * @param id user
+     * @return entity your body contain user
+     */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
         logger.info("llega al método getUserById...");
@@ -40,6 +49,11 @@ public class UserRestController {
         }
     }
 
+    /**
+     * Method to create new user or update a existing
+     * @param user
+     * @return entity your body contain user
+     */
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         logger.info("llega al método createUser...");
@@ -47,6 +61,12 @@ public class UserRestController {
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
+    /**
+     * Method to update user
+     * @param id user
+     * @param user
+     * @return entity your body contain user
+     */
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
         logger.info("llega al método updateUser...");
@@ -60,6 +80,11 @@ public class UserRestController {
         }
     }
 
+    /**
+     * Method to delete one user for id
+     * @param id
+     * @return entity with http status
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") Long id) {
         logger.info("llega al método deleteUser...");
