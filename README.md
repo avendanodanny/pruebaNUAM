@@ -1,5 +1,5 @@
-# pruebaNUAM
-Repositorio java para prueba NUAM, en este se ha subido el código proporcionado para la prueba, con algunos ajustes para
+# PruebaNUAM
+Repositorio java para prueba NUAM, en este repo se ha subido el código proporcionado para la prueba, con algunos ajustes para
 poder correr el proyecto y corrección de alguna implementación de método, además, se han añadido las funcionalidades
 requeridas en el enunciado enviado.
 
@@ -39,7 +39,10 @@ controller "transactionController" se implementa de la misma forma.
 
 - Se añade clases de test para el "transactionController" y el "transactionService", no se requería en el enunciado enviado,
 sin embargo, se implementan como plus para evidenciar el conocimiento sobre el tema (creación de test unitarios con
-JUnit y Mockito)
+JUnit y Mockito).
 
 - Adicionalmente, se sube al repo el archivo "test_dev.postman_collection.json", el cuál contiene todas las operaciones
-del Api, las que ya existían y las nuevas que se requerían construir
+del Api, las que ya existían y las nuevas que se requerían construir.
+
+- Se deja enlace de video de evidencia de algunas de las funcionalidades requeridas en el enunciado enviado:
+  https://drive.google.com/file/d/113SUxb24T0akOzPT2M7oqQcH5EFDycoB/view?usp=drive_link
