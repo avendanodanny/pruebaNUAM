@@ -116,7 +116,7 @@ public class TransactionRestController {
     @PostMapping("/company/{idCompany}")
     public ResponseEntity<TransactionResponse> createTransactionByCompany(@PathVariable("idCompany") Long idCompany,
                                                                         @RequestBody Transaction transaction) {
-        logger.info("llega al método createTransactionCompany...");
+        logger.info("llega al método createTransactionByCompany...");
         TransactionResponse response = null;
         if (validateTransactionType(transaction.getTransactionType())){
             try {
