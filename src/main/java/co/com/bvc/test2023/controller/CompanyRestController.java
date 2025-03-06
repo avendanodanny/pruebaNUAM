@@ -20,6 +20,10 @@ public class CompanyRestController {
     @Autowired
     private ICompanyService companyService;
 
+    /**
+     * Method to get all the companies
+     * @return entity your body is list of companies
+     */
     @GetMapping
     public ResponseEntity<List<Company>> getAllCompanies() {
         logger.info("llega al método getAllCompanies...");
@@ -27,6 +31,11 @@ public class CompanyRestController {
         return new ResponseEntity<>(companies, HttpStatus.OK);
     }
 
+    /**
+     * Method to get one company for id
+     * @param id company
+     * @return entity your body contain company
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Company> getCompanyById(@PathVariable("id") Long id) {
         logger.info("llega al método getCompanyById...");
@@ -38,6 +47,11 @@ public class CompanyRestController {
         }
     }
 
+    /**
+     * Method to create new company or update a existing
+     * @param company
+     * @return entity your body contain company
+     */
     @PostMapping
     public ResponseEntity<Company> createCompany(@RequestBody Company company) {
         logger.info("llega al método createCompany...");
@@ -45,6 +59,12 @@ public class CompanyRestController {
         return new ResponseEntity<>(savedCompany, HttpStatus.CREATED);
     }
 
+    /**
+     * Method to update company
+     * @param id company
+     * @param company
+     * @return entity your body contain company
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Company> updateCompany(@PathVariable("id") Long id, @RequestBody Company company) {
         logger.info("llega al método updateCompany...");
@@ -58,6 +78,11 @@ public class CompanyRestController {
         }
     }
 
+    /**
+     * Method to delete one company for id
+     * @param id company
+     * @return entity with http status
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteCompany(@PathVariable("id") Long id) {
         logger.info("llega al método deleteCompany...");
