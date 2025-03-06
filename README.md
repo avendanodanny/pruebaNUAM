@@ -1,7 +1,8 @@
 # PruebaNUAM
-Repositorio java para prueba NUAM, en este repo se ha subido el código proporcionado para la prueba, con algunos ajustes para
-poder correr el proyecto y corrección de alguna implementación de método, además, se han añadido las funcionalidades
-requeridas en el enunciado enviado.
+Repositorio java para prueba NUAM, no se requería creación de repo, sin embargo, se crea el repo para evidenciar los 
+conocimientos en herramientas de versionamiento, en este caso especificamente GitHub, además, en este se ha subido el 
+código proporcionado para la prueba, con algunos ajustes que permitieron correr el proyecto y corrección de alguna implementación 
+de método, adicionalmente, se han añadido las funcionalidades requeridas en el enunciado enviado.
 
 # Consideraciones Técnicas
 El proyecto se ejecuta con Apache Maven 3.9.9, como se muestra a continuación:
