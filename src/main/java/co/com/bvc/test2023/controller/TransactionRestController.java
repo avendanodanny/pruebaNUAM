@@ -1,6 +1,7 @@
 package co.com.bvc.test2023.controller;
 
 import co.com.bvc.test2023.model.Transaction;
+import co.com.bvc.test2023.model.TransactionResponse;
 import co.com.bvc.test2023.service.ITransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,10 +40,19 @@ public class TransactionRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Transaction> createUpdateTransaction(@RequestBody Transaction company) {
+    public ResponseEntity<TransactionResponse> createUpdateTransaction(@RequestBody Transaction company) {
         logger.info("llega al método createUpdateTransaction...");
-        Transaction savedTransaction = transactionService.createUpdateTransaction(company);
-        return new ResponseEntity<>(savedTransaction, HttpStatus.CREATED);
+        TransactionResponse response = null;
+        try {
+            Transaction savedTransaction = transactionService.createUpdateTransaction(company);
+            response = new TransactionResponse(null, savedTransaction);
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
+        }catch (Exception e){
+            logger.error(e.getMessage());
+            response = new TransactionResponse("Ha ocurrido un error al momento de guardar la trx: " + e.getMessage(),
+                    null);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/{id}")
